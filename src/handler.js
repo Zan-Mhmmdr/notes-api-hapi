@@ -51,4 +51,9 @@ const getNoteByIdHandler = (request, h) => {
   return response;
 };
 
+const editNoteByIdHandler = (request, h) => {
+  const { id } = request.params;
+  const { title, tags, body } = request.payload;
+}
+
 module.exports = { addNoteHandler, getAllNotesHandler, getNoteByIdHandler };
