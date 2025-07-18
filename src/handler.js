@@ -54,6 +54,28 @@ const getNoteByIdHandler = (request, h) => {
 const editNoteByIdHandler = (request, h) => {
   const { id } = request.params;
   const { title, tags, body } = request.payload;
-}
+  const updateAt = new Date().toISOString();
+
+  const index = notes.filter((note) => note.id === id)[0];
+
+  if (index !== undefined) {
+    notes[index] = {
+      ...notes[index],
+      title,
+      tags,
+      body,
+      updatedAt,
+    };
+    response.code(200);
+    return response;
+  }
+
+  const response = h.response({
+    status: "fail",
+    message: "Gagal memperbarui catatan. Id tidak ditemukan",
+  });
+  response.code(404);
+  return response;
+};
 
 module.exports = { addNoteHandler, getAllNotesHandler, getNoteByIdHandler };
